@@ -24,6 +24,12 @@
     <ClCompile Include="FindBook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include=".gitignore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MaximumSubarray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Sach.txt">
