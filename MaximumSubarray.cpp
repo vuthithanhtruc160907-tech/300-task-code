@@ -14,7 +14,7 @@ int SumSubarry(int arr[], int n) {
 
 	return maxSum;
 	}
-int main(){
+int main() {
 	int n = 5;
 	int nums[] = { 2,9,3,8,1,5};
 	cout << SumSubarry(nums, n);
