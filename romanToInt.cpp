@@ -25,7 +25,8 @@ int romanToInt(string s) {
             sum += getValue(s[i]);
         }
     }
-    return sum; 
+    return sum; }
+    
 int main(){
     string s = "MCMXCIV";
     cout << romanToInt(s) << endl;

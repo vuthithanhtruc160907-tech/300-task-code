@@ -60,4 +60,3 @@ int main() {
 	delete[]a;
 	return 0;
 }
-// Sửa tên cho file số may mắn

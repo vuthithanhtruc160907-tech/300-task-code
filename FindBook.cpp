@@ -12,11 +12,11 @@ using namespace std;
 // YÊU CẦU 1: Định nghĩa struct Sach và các hàm nhập xuất cơ bản
 // ============================================================================
 struct Sach {
-    char maSach[50];       // c-string
-    string tenSach;        // string
-    char tenTacGia[100];   // c-string
-    double giaBan;         // số thực
-    int giamGia;           // số nguyên (%)
+    char maSach[50];       
+    string tenSach;        
+    char tenTacGia[100];   
+    double giaBan;         
+    int giamGia;           
 };
 
 // Hàm nhập thông tin 1 quyển sách từ bàn phím (Nếu cần dùng sau này)
@@ -31,10 +31,10 @@ void nhap1Sach(Sach& s) {
     cin >> s.giaBan;
     cout << "Nhap giam gia (%): ";
     cin >> s.giamGia;
-    cin.ignore(); // Xóa bộ nhớ đệm
+    cin.ignore(); 
 }
 
-// Hàm xuất thông tin 1 quyển sách ra màn hình (Đã canh lề chuẩn)
+
 void xuat1Sach(const Sach& s) {
     cout << left << setw(10) << s.maSach
         << setw(35) << s.tenSach
@@ -43,15 +43,12 @@ void xuat1Sach(const Sach& s) {
         << s.giamGia << "%" << endl;
 }
 
-// ============================================================================
-// YÊU CẦU 2: Định nghĩa struct DSQS, đọc file Sach.txt và xuất danh sách
-// ============================================================================
+
 struct DSQS {
-    Sach* danhSach = nullptr; // Con trỏ trỏ đến mảng động các quyển sách
-    int soLuong = 0;          // Số lượng sách hiện có
+    Sach* danhSach = nullptr; 
+    int soLuong = 0;          
 };
 
-// Hàm đọc tập tin Sach.txt (Phiên bản xử lý dấu '#' và tự đếm số dòng)
 void docFileSach(const string& filename, DSQS& ds) {
     ifstream fileIn(filename);
     if (!fileIn.is_open()) {
@@ -74,16 +71,13 @@ void docFileSach(const string& filename, DSQS& ds) {
         return;
     }
 
-    // Nếu danh sách đã có dữ liệu từ trước, giải phóng bộ nhớ để tránh rò rỉ
     if (ds.danhSach != nullptr) {
         delete[] ds.danhSach;
     }
 
-    // Cấp phát mảng động mới
     ds.soLuong = count;
     ds.danhSach = new Sach[ds.soLuong];
 
-    // --- BƯỚC 2: Tua con trỏ về đầu file để đọc thật ---
     fileIn.clear();
     fileIn.seekg(0, ios::beg);
 
@@ -123,7 +117,6 @@ void docFileSach(const string& filename, DSQS& ds) {
     fileIn.close();
 }
 
-// Hàm xuất danh sách sách ra màn hình
 void xuatDanhSach(const DSQS& ds) {
     if (ds.soLuong == 0 || ds.danhSach == nullptr) {
         cout << "Danh sach hien tai dang trong!" << endl;
@@ -139,9 +132,6 @@ void xuatDanhSach(const DSQS& ds) {
     cout << "----------------------------------------------------------------------------------------------------------\n";
 }
 
-// ============================================================================
-// YÊU CẦU 3: Hàm tìm kiếm theo mã sách hoặc tên sách
-// ============================================================================
 int timKiemSach(const DSQS& ds) {
     if (ds.soLuong == 0) {
         cout << "Danh sach trong, khong the tim kiem!" << endl;
@@ -219,18 +209,15 @@ void muaSachVaXuatHoaDon(const DSQS& ds) {
         return;
     }
 
-    // Tính tổng hóa đơn: Thành tiền mỗi quyển = giá bán * (100 - giảm giá) / 100
-    // Tính tổng hóa đơn
+    
     double tongHoaDon = 0;
     for (int i = 0; i < soLuongMua; i++) {
         int idx = gioHang[i];
-        // Lưu ý: Đề bài ghi "thành tiền = giá bán * giảm giá". 
-        // Ở đây mình chia 100 để tính ra số tiền được giảm theo % cho hợp lý nhé.
         double thanhTien = (ds.danhSach[idx].giaBan * ds.danhSach[idx].giamGia) / 100.0;
         tongHoaDon += thanhTien;
     }
 
-    // --- THÊM PHẦN IN RA MÀN HÌNH Ở ĐÂY ---
+    
     cout << "\n================ HOÁ ĐƠN CỦA BẠN ================\n";
     cout << "=> Tong tien phai thanh toan: " << fixed << setprecision(0) << tongHoaDon << " VND\n";
     cout << "=================================================\n";
@@ -261,9 +248,7 @@ void muaSachVaXuatHoaDon(const DSQS& ds) {
     delete[] gioHang;
 }
 
-// ============================================================================
-// YÊU CẦU 5: Xây dựng hàm main với menu lựa chọn
-// ============================================================================
+
 int main() {
     DSQS dsNhaBe;
     int luaChon;
@@ -288,7 +273,7 @@ int main() {
             xuatDanhSach(dsNhaBe);
             break;
         case 3: {
-            // ---> THÊM DÒNG NÀY VÀO: Hiện danh sách ra trước khi tìm kiếm
+            
             xuatDanhSach(dsNhaBe);
 
             int idx = timKiemSach(dsNhaBe);
@@ -302,7 +287,7 @@ int main() {
             break;
         }
         case 4:
-            // ---> THÊM DÒNG NÀY VÀO: Hiện danh sách ra để khách dễ nhìn mã sách mà mua
+        
             xuatDanhSach(dsNhaBe);
 
             muaSachVaXuatHoaDon(dsNhaBe);
@@ -315,7 +300,7 @@ int main() {
         }
     } while (luaChon != 0);
 
-    // Dọn dẹp bộ nhớ trước khi thoát
+   
     if (dsNhaBe.danhSach != nullptr) {
         delete[] dsNhaBe.danhSach;
     }
