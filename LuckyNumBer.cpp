@@ -59,4 +59,5 @@ int main() {
 	cout<<sumOddTail(a, n,0,0 );
 	delete[]a;
 	return 0;
+	
 }
